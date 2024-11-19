@@ -22,7 +22,7 @@ def load_query():
             queries = [line.strip() for line in f.readlines()]
         return queries
     except FileNotFoundError:
-        print("File paws_query.txt not found.")
+        print("File tinyverse_query.txt not found.")
         return [  ]
     except Exception as e:
         print("Failed get Query :", str(e))
