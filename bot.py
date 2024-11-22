@@ -76,13 +76,13 @@ def main():
             id = users.get('id')
             print_(f"[SxG]======= Account {index+1}/{sum} [ {users.get('username','')} ] ========[SxG]")
             token = get(id)
+            reff_id = config.get('reff_id')
             if token is None:
                 print_("Get Token")
                 data_auth = tinyverse.auth(query)
                 response = data_auth.get('response')
                 token = response.get('session')
                 save(id, token)
-                reff_id = config.get('reff_id')
                 tinyverse.begin(token, reff_id)
                 
             tinyverse.collect(token)

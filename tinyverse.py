@@ -134,8 +134,8 @@ class TinyVerse:
                 dust = responses.get('dust')
                 dust_max = responses.get('dust_max')
                 dust_produce = responses.get('dust_produce')
-                dust_interval = responses.get('dust_interval')
-                self.print_(f"Rating : {rating} | Dust : {dust}/{dust_max} | Produce : {dust_produce}/{dust_interval/3600} Hours")
+                self.print_(f"Rating : {rating} | Dust : {dust}/{dust_max} | Produce : {dust_produce}")
+                return dust
 
 
             
@@ -161,4 +161,4 @@ class TinyVerse:
         except Exception as error:
             self.print_(f"Error {error}")
             return None
-       
+    
