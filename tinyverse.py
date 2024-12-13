@@ -11,19 +11,13 @@ import requests
 class TinyVerse:
     def __init__(self):
         self.headers = {
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Cache-Control': 'no-cache',
             'Host': 'api.tonverse.app',
             'Origin': 'https://app.tonverse.app',
             'Referer': 'https://app.tonverse.app/',
-            'sec-ch-ua-platform':'Windows',
-            'Sec-Fetch-Dest': 'empty',
-            'Sec-Fetch-Mode': 'cors',
-            'Sec-Fetch-Site': 'same-site',
             'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0',
-            'X-Requested-With': 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'X-Application-Version' : '0.7.18'
         }
     
     def print_(self, word):
@@ -59,7 +53,6 @@ class TinyVerse:
         payload = {"data": query}
         headers = {
            **self.headers,
-           'content-lenght': str(len(payload))
         }
         try:
             response = self.make_request('post',url=url, headers=headers, params=payload)
@@ -78,12 +71,11 @@ class TinyVerse:
                    }
         headers = {
            **self.headers,
-           'content-lenght': str(len(payload))
         }
         try:
             response = self.make_request('post',url=url, headers=headers, params=payload)
             if response is not None:
-                self.print_(f"Create account with reff {reff} done")
+                self.print_(f"Create account done")
                 return response.json()
             
         except Exception as error:
@@ -98,7 +90,6 @@ class TinyVerse:
                    }
         headers = {
            **self.headers,
-           'content-lenght': str(len(payload))
         }
         try:
             response = self.make_request('post',url=url, headers=headers, params=payload)
@@ -123,7 +114,6 @@ class TinyVerse:
                    }
         headers = {
            **self.headers,
-           'content-lenght': str(len(payload))
         }
         try:
             response = self.make_request('post',url=url, headers=headers, params=payload)
@@ -149,7 +139,6 @@ class TinyVerse:
         payload = {"session": token}
         headers = {
            **self.headers,
-           'content-lenght': str(len(payload))
         }
         try:
             response = self.make_request('post',url=url, headers=headers, params=payload)
@@ -161,4 +150,4 @@ class TinyVerse:
         except Exception as error:
             self.print_(f"Error {error}")
             return None
-    
+        

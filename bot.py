@@ -87,14 +87,47 @@ def main():
                 
             tinyverse.collect(token)
             tinyverse.get(token)
-            tinyverse.info(token)
-            
-                
 
         end_time = time.time()
         total = delay - (end_time-start_time)
         if total > 0:
             print_delay(total)
 
+def generate_token():
+    queries = load_query()
+    sum = len(queries)
+    tinyverse = TinyVerse()
+    config = load_config()
+    for index, query in enumerate(queries):
+        users = parse_query(query).get('user')
+        id = users.get('id')
+        print_(f"[SxG]======= Account {index+1}/{sum} [ {users.get('username','')} ] ========[SxG]")
+        token = get(id)
+        reff_id = config.get('reff_id')
+        if token is None:
+            print_("Get Token")
+            data_auth = tinyverse.auth(query)
+            response = data_auth.get('response')
+            token = response.get('session')
+            save(id, token)
+            tinyverse.begin(token, reff_id)
+
+def start():
+    print("""
+    SXG=== TINYVERSE BOT ===SXG
+
+    1. claim daily
+    2. generate token
+
+""")
+    selector_input= input("please select input number ? : ")
+
+    if selector_input == '1':
+        main()
+    elif selector_input == '2':
+        generate_token()
+    else:
+        print('WRONG INPUT')
+
 if __name__ == "__main__":
-     main()
+     start()
